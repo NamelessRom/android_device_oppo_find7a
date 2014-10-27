@@ -1,3 +1,4 @@
+#
 # Copyright (C) 2014 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,16 +12,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
-LOCAL_PATH := $(call my-dir)
+# overlays
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
-include $(CLEAR_VARS)
+# Bootanimation and recovery
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1080
 
-LOCAL_MODULE := nfc.msm8974
-LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
-LOCAL_SRC_FILES := nfc_hw.c
-LOCAL_SHARED_LIBRARIES := liblog libcutils
-LOCAL_MODULE_TAGS := optional
-LOCAL_CFLAGS += -D$(TARGET_DEVICE)
+# Ramdisk
+PRODUCT_PACKAGES += \
+    fstab.qcom
 
-include $(BUILD_SHARED_LIBRARY)
+# call the proprietary setup
+$(call inherit-product-if-exists, vendor/oppo/find7/find7-vendor.mk)
+
+# Inherit from msm8974-common
+$(call inherit-product, device/oppo/msm8974-common/msm8974.mk)
+
+# Inherit from find7-common
+$(call inherit-product, device/oppo/find7-common/find7-common.mk)
