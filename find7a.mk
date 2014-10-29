@@ -23,7 +23,9 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    fstab.qcom
+    fstab.qcom \
+    init.qcom.rc \
+    init.qcom.usb.rc \
 
 # call the proprietary setup
 $(call inherit-product-if-exists, vendor/oppo/find7/find7-vendor.mk)
